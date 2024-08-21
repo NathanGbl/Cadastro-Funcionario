@@ -21,7 +21,7 @@ body {
 }
 
 header {
-    height: 10dvh;
+    height: 20dvh;
     display: flex;
     align-items: center;
     padding: 1.5em;
@@ -30,18 +30,31 @@ header {
 
 form {
     display: flex;
-    height: 80dvh;
+    height: 60dvh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid var(--light_blue);
-    margin: 0 20dvh;
     background-color: var(--green);
     border-radius: 1em;
+    margin: 0 auto;
+    max-width: 30em;
+    padding: 0 auto;
+}
+
+#cadastrar {
+    margin-top: 1.5em;
+    padding: 1em;
+    border-radius: 1em;
+    border: 0;
+}
+
+#cadastrar:hover {
+    
 }
 
 footer {
-    height: 10dvh;
+    height: 20dvh;
     display: flex;
     align-items: center;
     padding: 1.5em;
