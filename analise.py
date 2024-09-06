@@ -8,27 +8,23 @@ from selenium.webdriver.support import expected_conditions as EC
 import bot
 import time
 
-funcionarios_Df = pd.read_excel('funcionarios_empresa.xlsx')
+employeeDf = pd.read_excel('funcionarios_empresa.xlsx')
 
 service = Service(executable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 
-driver.get("https://google.com")
+driver.get("link")
 
-WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "gLFyf"))
-)
+employeeNames = employeeDf['Nome']
+employeeLastNames = employeeDf['Sobrenome']
+employeePositions = employeeDf['Cargo']
+employeeDepartments = employeeDf['Departamento']
+employeeEmails = employeeDf['E-mail']
+employeePhones = employeeDf['Telefone']
 
-input_element = driver.find_element(By.CLASS_NAME, "gLFyf")
-input_element.send_keys("tech with tim" + Keys.ENTER)
-
-WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Tech With Tim"))
-)
-
-link = driver.find_element(By.PARTIAL_LINK_TEXT, "Tech With Tim")
-link.click()
-
-time.sleep(10)
-
+for i in range(len(employeeNames)):
+    bot.fillEmployeeForm(
+        driver, employeeNames[i], employeeLastNames[i], employeePositions[i], employeeDepartments[i], employeeEmails[i], employeePhones[i]
+        )
+    time.sleep(2)
 driver.quit()

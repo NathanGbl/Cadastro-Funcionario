@@ -1,52 +1,42 @@
-import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
-def findElement(driver: webdriver.Chrome, elementType: str, elementName: str):
+def findElement(driver: webdriver.Chrome, waySearch: str, elementId: str):
     types = {
         "id": By.ID,
         "class": By.CLASS_NAME
     }
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located(
-            (types[elementType], elementName)
+            (types[waySearch], elementId)
         )
     )
 
+def fillInputById(driver: webdriver.Chrome, elementId: str, data: str):
+    findElement(driver, "id", elementId)
+    field = driver.find_element(By.ID, elementId)
+    field.clear()
+    field.send_keys(data)
+
+def clickButtonById(driver: webdriver.Chrome, buttonId: str):
+    findElement(driver, "id", buttonId)
+    botao = driver.find_element(By.ID, buttonId)
+    botao.click()
+
 def fillEmployeeForm(driver: webdriver.Chrome, name: str, lastName: str, position: str, department: str, email: str, phoneNumber: str):
-    findElement(driver, "id", "name")
-    field = driver.find_element(By.ID, "name")
-    field.clear()
-    field.send_keys(name)
+    fillInputById(driver, "name", name)
+    fillInputById(driver, "lastName", lastName)
+    fillInputById(driver, "position", position)
+    fillInputById(driver, "department", department)
+    fillInputById(driver, "email", email)
+    fillInputById(driver, "phoneNumber", phoneNumber)
+    clickButtonById(driver, "cadastrar")
 
-    findElement(driver, "id", "lastName")
-    field = driver.find_element(By.ID, "lastName")
-    field.clear()
-    field.send_keys(lastName)
-
-    findElement(driver, "id", "position")
-    field = driver.find_element(By.ID, "position")
-    field.clear()
-    field.send_keys(position)
-
-    findElement(driver, "id", "department")
-    field = driver.find_element(By.ID, "department")
-    field.clear()
-    field.send_keys(department)
-
-    findElement(driver, "id", "email")
-    field = driver.find_element(By.ID, "email")
-    field.clear()
-    field.send_keys(email)
-
-    findElement(driver, "id", "phoneNumber")
-    field = driver.find_element(By.ID, "phoneNumber")
-    field.clear()
-    field.send_keys(phoneNumber)
-
-# def fillAdmForm():
+def fillAdmForm(driver: webdriver.Chrome, user: str, password: str):
+    fillInputById(driver, "user", user)
+    fillInputById(driver, "password", password)
+    clickButtonById(driver, "logar")
