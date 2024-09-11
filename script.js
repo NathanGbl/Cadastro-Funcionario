@@ -2,7 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 
 const app = express();
-const port = 5500;
+const port = 3000;
 
 const cadastrarBtn = document.getElementById('cadastrar');
 const logarBtn = document.getElementById('logar');
